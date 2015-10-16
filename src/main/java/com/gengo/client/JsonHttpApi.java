@@ -410,7 +410,7 @@ public class JsonHttpApi
             }
             if (HttpURLConnection.HTTP_OK != con.getResponseCode())
             {
-                throw new GengoException(String.format("Unexpected HTTP response: %i", con.getResponseCode()));
+                throw new GengoException(String.format("Unexpected HTTP response: %d", con.getResponseCode()));
             }
             return buf.toString();
         }
@@ -439,7 +439,7 @@ public class JsonHttpApi
             }
             if (HttpURLConnection.HTTP_OK != con.getResponseCode())
             {
-                throw new GengoException(String.format("Unexpected HTTP response: %i", con.getResponseCode()));
+                throw new GengoException(String.format("Unexpected HTTP response: %d", con.getResponseCode()));
             }
             return buf.toString();
         }
@@ -470,7 +470,7 @@ public class JsonHttpApi
             }
             if (HttpURLConnection.HTTP_OK != con.getResponseCode())
             {
-                throw new GengoException(String.format("Unexpected HTTP response: %i", con.getResponseCode()));
+                throw new GengoException(String.format("Unexpected HTTP response: %d", con.getResponseCode()));
             }
             return buf.toString();
         }
