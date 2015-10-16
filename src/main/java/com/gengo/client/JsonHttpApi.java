@@ -1,5 +1,7 @@
 package com.gengo.client;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +19,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -193,8 +194,8 @@ public class JsonHttpApi
             try {
                 sb.append(String.format(
                         "&%s=%s",
-                        URLEncoder.encode(e.getKey(), "UTF-8"),
-                        URLEncoder.encode(e.getValue(), "UTF-8")
+                        URLEncoder.encode(e.getKey(), UTF_8.name()),
+                        URLEncoder.encode(e.getValue(), UTF_8.name())
                 ));
             }
             catch (UnsupportedEncodingException ex)
@@ -254,7 +255,7 @@ public class JsonHttpApi
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         try
         {
-            String length = Integer.toString(query.getBytes("UTF-8").length);
+            String length = Integer.toString(query.getBytes(UTF_8).length);
             con.setRequestProperty("Content-Length", length);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
             out.write(query);
@@ -262,7 +263,7 @@ public class JsonHttpApi
             out.close();
             String line;
             StringBuffer buf = new StringBuffer();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), UTF_8)))
             {
 	            while (null != (line = reader.readLine()))
 	            {
@@ -293,7 +294,6 @@ public class JsonHttpApi
     protected JSONObject httpPostFileUpload(String url, JSONObject data, Map<String, String> filePaths) throws GengoException
     {
         try {
-            String charset = "UTF-8";
             HttpURLConnection con = createHttpConnection(HttpMethod.POST, url, null);
             con.setDoOutput(true);
             String boundary = Long.toHexString(System.currentTimeMillis()); // Just generate some unique random value.
@@ -308,7 +308,7 @@ public class JsonHttpApi
             try
             {
                 OutputStream output = con.getOutputStream();
-                writer = new PrintWriter(new OutputStreamWriter(output, charset), true); // true = autoFlush, important!
+                writer = new PrintWriter(new OutputStreamWriter(output, UTF_8), true); // true = autoFlush, important!
 
                 // Send normal params.
                 for (Map.Entry<String, String> param : parameters.entrySet()) {
@@ -360,7 +360,7 @@ public class JsonHttpApi
 
                 StringBuffer buf = new StringBuffer();
                 String line;
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), UTF_8)))
                 {
 	                while (null != (line = reader.readLine()))
 	                {
@@ -403,7 +403,7 @@ public class JsonHttpApi
      */
     private String httpGet(HttpURLConnection con) throws GengoException
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), UTF_8)))
         {
             String line;
             StringBuffer buf = new StringBuffer();
@@ -431,7 +431,7 @@ public class JsonHttpApi
      */
     private String httpDelete(HttpURLConnection con) throws GengoException
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), UTF_8)))
         {
             String line;
             StringBuffer buf = new StringBuffer();
@@ -457,7 +457,7 @@ public class JsonHttpApi
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         try
         {
-            String length = Integer.toString(query.getBytes("UTF-8").length);
+            String length = Integer.toString(query.getBytes(UTF_8).length);
             con.setRequestProperty("Content-Length", length);
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
             out.writeBytes(query);
@@ -465,7 +465,7 @@ public class JsonHttpApi
             out.close();
             String line;
             StringBuffer buf = new StringBuffer();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), UTF_8)))
             {
 	            while (null != (line = reader.readLine()))
 	            {
