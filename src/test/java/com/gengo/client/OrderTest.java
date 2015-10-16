@@ -52,7 +52,7 @@ public class OrderTest {
         // get an order that does not exists
         id += 1000;
         try {
-            getOrderResp = Gengo.getOrderJobs(id);
+            Gengo.getOrderJobs(id);
         }
         catch (ErrorResponseException ex)
         {

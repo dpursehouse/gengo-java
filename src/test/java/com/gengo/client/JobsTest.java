@@ -14,7 +14,6 @@ import com.gengo.client.exceptions.GengoException;
 import com.gengo.client.payloads.TranslationJob;
 import com.gengo.client.payloads.FileJob;
 import com.gengo.client.enums.Tier;
-import com.gengo.client.payloads.Payloads;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -90,6 +89,6 @@ public class JobsTest {
         TranslationJob job = new TranslationJob("label_test", "'n Bietjie afrikaanse teks", "af", "es", Tier.STANDARD);
         List<TranslationJob> jobList = new ArrayList<TranslationJob>();
         jobList.add(job);
-        JSONObject response = Gengo.postTranslationJobs(jobList, false);
+        Gengo.postTranslationJobs(jobList, false);
     }
 }
