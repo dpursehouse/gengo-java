@@ -149,7 +149,7 @@ public class FileJob extends Payload
         {
             throw new GengoException("Maximum custom data is " + MAX_COMMENT_LENGTH + " bytes");
         }
-        customData = new String(data);
+        customData = data;
     }
     public String getTone() {
     	return this.tone;

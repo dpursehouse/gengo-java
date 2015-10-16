@@ -147,7 +147,7 @@ public class TranslationJob extends Payload
 		{
 			throw new GengoException("Maximum custom data is " + MAX_COMMENT_LENGTH + " bytes");
 		}
-		customData = new String(data);
+		customData = data;
 	}
 	public String getPosition()
 	{
