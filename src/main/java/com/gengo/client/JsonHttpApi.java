@@ -260,19 +260,21 @@ public class JsonHttpApi
             out.write(query);
             out.flush();
             out.close();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8")));
             String line;
             StringBuffer buf = new StringBuffer();
-            while (null != (line = reader.readLine()))
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
             {
-                buf.append(line);
+	            while (null != (line = reader.readLine()))
+	            {
+	                buf.append(line);
+	            }
             }
             if (HttpURLConnection.HTTP_OK != con.getResponseCode()
-                && HttpURLConnection.HTTP_CREATED != con.getResponseCode())
-            {
-                throw new GengoException(String.format("Unexpected HTTP response: %d", con.getResponseCode()));
-            }
-            return buf.toString();
+	                && HttpURLConnection.HTTP_CREATED != con.getResponseCode())
+	            {
+	                throw new GengoException(String.format("Unexpected HTTP response: %d", con.getResponseCode()));
+	            }
+	            return buf.toString();
         }
         catch (Exception e)
         {
@@ -356,12 +358,14 @@ public class JsonHttpApi
                     }
                 }
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8")));
-                String line;
                 StringBuffer buf = new StringBuffer();
-                while (null != (line = reader.readLine()))
+                String line;
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
                 {
-                    buf.append(line);
+	                while (null != (line = reader.readLine()))
+	                {
+	                    buf.append(line);
+	                }
                 }
                 if (HttpURLConnection.HTTP_OK != con.getResponseCode()
                     && HttpURLConnection.HTTP_CREATED != con.getResponseCode())
@@ -399,9 +403,8 @@ public class JsonHttpApi
      */
     private String httpGet(HttpURLConnection con) throws GengoException
     {
-        try
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
         {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8")));
             String line;
             StringBuffer buf = new StringBuffer();
             while (null != (line = reader.readLine()))
@@ -428,9 +431,8 @@ public class JsonHttpApi
      */
     private String httpDelete(HttpURLConnection con) throws GengoException
     {
-        try
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
         {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8")));
             String line;
             StringBuffer buf = new StringBuffer();
             while (null != (line = reader.readLine()))
@@ -461,12 +463,14 @@ public class JsonHttpApi
             out.writeBytes(query);
             out.flush();
             out.close();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8")));
             String line;
             StringBuffer buf = new StringBuffer();
-            while (null != (line = reader.readLine()))
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), Charset.forName("UTF-8"))))
             {
-                buf.append(line);
+	            while (null != (line = reader.readLine()))
+	            {
+	                buf.append(line);
+	            }
             }
             if (HttpURLConnection.HTTP_OK != con.getResponseCode())
             {
