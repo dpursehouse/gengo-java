@@ -1,16 +1,12 @@
 package com.gengo.client;
-
-import com.gengo.client.exceptions.GengoException;
-
 import org.json.JSONObject;
-import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class AccountTest extends GengoTests {
 
     @Test
-    public void testGetAccountBalance() throws GengoException, JSONException {
+    public void testGetAccountBalance() throws Exception {
 
         JSONObject response = client.getAccountBalance();
         Assert.assertEquals(response.get("opstat").toString(), "ok");
@@ -18,7 +14,7 @@ public class AccountTest extends GengoTests {
     }
 
     @Test
-    public void testGetAccountStats() throws GengoException, JSONException {
+    public void testGetAccountStats() throws Exception {
 
         JSONObject response = client.getAccountStats();
         Assert.assertEquals(response.get("opstat").toString(), "ok");
@@ -26,7 +22,7 @@ public class AccountTest extends GengoTests {
     }
 
     @Test
-    public void testGetAccountPreferredTranslators() throws GengoException, JSONException {
+    public void testGetAccountPreferredTranslators() throws Exception {
 
         JSONObject response = client.getAccountPreferredTranslators();
         Assert.assertEquals(response.get("opstat").toString(), "ok");

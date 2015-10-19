@@ -6,18 +6,16 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 import org.json.JSONObject;
-import org.json.JSONException;
 
 import com.gengo.client.enums.Tier;
 import com.gengo.client.payloads.TranslationJob;
-import com.gengo.client.exceptions.GengoException;
 import com.gengo.client.exceptions.ErrorResponseException;
 
 
 public class OrderTest extends GengoTests {
 
     @Test
-    public void testGetOrder() throws ErrorResponseException, GengoException, JSONException, InterruptedException {
+    public void testGetOrder() throws Exception {
 
         // post a job and retrieve the order_id
         List<TranslationJob> jobList = new ArrayList<TranslationJob>();

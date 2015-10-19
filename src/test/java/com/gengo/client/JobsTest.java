@@ -2,7 +2,6 @@ package com.gengo.client;
 
 import java.lang.Integer;
 import java.lang.Thread;
-import java.lang.InterruptedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -14,14 +13,13 @@ import com.gengo.client.payloads.FileJob;
 import com.gengo.client.enums.Tier;
 
 import org.json.JSONObject;
-import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class JobsTest extends GengoTests {
 
     @Test
-    public void testPostJobsText() throws GengoException, JSONException, InterruptedException {
+    public void testPostJobsText() throws Exception {
         // POST a text job
         List<TranslationJob> jobList = new ArrayList<TranslationJob>();
         TranslationJob job = new TranslationJob("java client test", "This is a short story.", "en", "ja", Tier.STANDARD);
@@ -61,7 +59,7 @@ public class JobsTest extends GengoTests {
     }
 
     @Test
-    public void testPostJobsFiles() throws GengoException, JSONException, InterruptedException {
+    public void testPostJobsFiles() throws Exception {
         Map<String, String> filePaths = new HashMap<String, String>();
         FileJob job1 = new FileJob("someslug", "file_job_1", "en", "ja", Tier.STANDARD);
         FileJob job2 = new FileJob("someslug2", "file_job_2", "en", "ja", Tier.STANDARD);
@@ -76,7 +74,7 @@ public class JobsTest extends GengoTests {
     }
 
     @Test(expected=GengoException.class)
-    public void testPostTranslationJobs() throws GengoException, JSONException, InterruptedException {
+    public void testPostTranslationJobs() throws Exception {
         // there is no Afrikaans source language, so we expect this to raise an exception
         TranslationJob job = new TranslationJob("label_test", "'n Bietjie afrikaanse teks", "af", "es", Tier.STANDARD);
         List<TranslationJob> jobList = new ArrayList<TranslationJob>();
