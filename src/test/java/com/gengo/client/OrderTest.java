@@ -1,10 +1,12 @@
 package com.gengo.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.ArrayList;
 
 import org.junit.Test;
-import org.junit.Assert;
 import org.json.JSONObject;
 
 import com.gengo.client.enums.Tier;
@@ -25,12 +27,12 @@ public class OrderTest extends GengoTests {
 
         JSONObject postResp = client.postTranslationJobs(jobList, false);
         // Make assertions on POST response
-        Assert.assertEquals(postResp.getString("opstat"), "ok");
-        Assert.assertTrue(postResp.has("response"));
+        assertEquals(postResp.getString("opstat"), "ok");
+        assertTrue(postResp.has("response"));
         JSONObject postResponse = postResp.getJSONObject("response");
-        Assert.assertEquals(postResponse.get("job_count"), 1);
-        Assert.assertTrue(postResponse.has("credits_used"));
-        Assert.assertTrue(postResponse.has("order_id"));
+        assertEquals(postResponse.get("job_count"), 1);
+        assertTrue(postResponse.has("credits_used"));
+        assertTrue(postResponse.has("order_id"));
         String orderId = postResponse.getString("order_id");
 
         // sleep to give jobs-processor time to process this job
@@ -38,8 +40,8 @@ public class OrderTest extends GengoTests {
         int id = Integer.parseInt(orderId);
         JSONObject getOrderResp = client.getOrderJobs(id);
         // Make assertions on GET response
-        Assert.assertEquals(getOrderResp.getString("opstat"), "ok");
-        Assert.assertTrue(getOrderResp.has("response"));
+        assertEquals(getOrderResp.getString("opstat"), "ok");
+        assertTrue(getOrderResp.has("response"));
 
         // get an order that does not exists
         id += 1000;
@@ -49,7 +51,7 @@ public class OrderTest extends GengoTests {
         catch (ErrorResponseException ex)
         {
             // make sure we get the correct error response
-            Assert.assertEquals(ex.getErrorCode(), ErrorResponseException.UNAUTHORIZED_ORDER_ACCESS);
+            assertEquals(ex.getErrorCode(), ErrorResponseException.UNAUTHORIZED_ORDER_ACCESS);
         }
     }
 }
