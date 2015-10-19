@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.gengo.client.exceptions.GengoException;
+import com.gengo.client.exceptions.ErrorResponseException;
 import com.gengo.client.payloads.TranslationJob;
 import com.gengo.client.payloads.FileJob;
 import com.gengo.client.enums.Tier;
@@ -75,12 +75,14 @@ public class JobsTest extends GengoTests {
         assertTrue(rsp.has("response"));
     }
 
-    @Test(expected=GengoException.class)
+    @Test
     public void testPostTranslationJobs() throws Exception {
         // there is no Afrikaans source language, so we expect this to raise an exception
         TranslationJob job = new TranslationJob("label_test", "'n Bietjie afrikaanse teks", "af", "es", Tier.STANDARD);
         List<TranslationJob> jobList = new ArrayList<TranslationJob>();
         jobList.add(job);
+        exception.expect(ErrorResponseException.class);
+        exception.expectMessage("1551: language service not supported");
         client.postTranslationJobs(jobList, false);
     }
 }
