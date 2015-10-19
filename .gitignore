@@ -4,3 +4,6 @@
 org/*
 target/*
 /target/
+.project
+.classpath
+.settings
