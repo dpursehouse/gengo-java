@@ -20,11 +20,9 @@ Run `mvn package` from the base directory. Package is built into the `target` di
 ### Eclipse
 Quick start:
 * Checkout code from github
-* File menu > New Java Project
-* Uncheck "Use default location"
-* Set project layout to Use project folder as root for sources and class files
-* Browse for location checked out code
-* Hit next
+* File menu > Import -> Existing Maven Projects
+* Browse for location of checked out code
+* Check the `pom.xml`
 * Hit finish
 * Build!
 
