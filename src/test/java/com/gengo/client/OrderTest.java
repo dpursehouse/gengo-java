@@ -44,14 +44,11 @@ public class OrderTest extends GengoTests {
         assertTrue(getOrderResp.has("response"));
 
         // get an order that does not exists
+        // and make sure we get the correct error response
         id += 1000;
-        try {
-            client.getOrderJobs(id);
-        }
-        catch (ErrorResponseException ex)
-        {
-            // make sure we get the correct error response
-            assertEquals(ex.getErrorCode(), ErrorResponseException.UNAUTHORIZED_ORDER_ACCESS);
-        }
+        exception.expect(ErrorResponseException.class);
+        exception.expect(new ErrorResponseCodeMatches(
+                ErrorResponseException.UNAUTHORIZED_ORDER_ACCESS));
+        client.getOrderJobs(id);
     }
 }
