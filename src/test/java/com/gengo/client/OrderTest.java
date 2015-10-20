@@ -27,8 +27,7 @@ public class OrderTest extends GengoTests {
 
         JSONObject postResp = client.postTranslationJobs(jobList, false);
         // Make assertions on POST response
-        assertEquals(postResp.getString("opstat"), "ok");
-        assertTrue(postResp.has("response"));
+        assertSuccessfulResponse(postResp);
         JSONObject postResponse = postResp.getJSONObject("response");
         assertEquals(postResponse.get("job_count"), 1);
         assertTrue(postResponse.has("credits_used"));
@@ -38,10 +37,8 @@ public class OrderTest extends GengoTests {
         // sleep to give jobs-processor time to process this job
         Thread.sleep(10000);
         int id = Integer.parseInt(orderId);
-        JSONObject getOrderResp = client.getOrderJobs(id);
         // Make assertions on GET response
-        assertEquals(getOrderResp.getString("opstat"), "ok");
-        assertTrue(getOrderResp.has("response"));
+        assertSuccessfulResponse(client.getOrderJobs(id));
 
         // get an order that does not exists
         // and make sure we get the correct error response

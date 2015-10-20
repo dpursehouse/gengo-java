@@ -1,9 +1,12 @@
 package com.gengo.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -25,6 +28,11 @@ public class GengoTests {
         assumeNotNull(public_key);
         assumeNotNull(private_key);
         client = new GengoClient(public_key, private_key, true);
+    }
+
+    protected void assertSuccessfulResponse(JSONObject response) throws Exception {
+        assertEquals(response.getString("opstat"), "ok");
+        assertTrue(response.has("response"));
     }
 
     protected static class ErrorResponseCodeMatches extends TypeSafeMatcher<ErrorResponseException> {

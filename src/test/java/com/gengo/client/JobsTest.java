@@ -32,8 +32,7 @@ public class JobsTest extends GengoTests {
         jobList.add(job2);
         JSONObject postResp = client.postTranslationJobs(jobList, true);
         // Make assertions on POST response
-        assertEquals(postResp.getString("opstat"), "ok");
-        assertTrue(postResp.has("response"));
+        assertSuccessfulResponse(postResp);
         JSONObject postResponse = postResp.getJSONObject("response");
         assertEquals(postResponse.get("job_count"), 2);
         assertTrue(postResponse.has("credits_used"));
@@ -46,15 +45,13 @@ public class JobsTest extends GengoTests {
         Thread.sleep(10000);
         JSONObject getOrderResp = client.getOrderJobs(Integer.parseInt(orderId));
         // Make assertions on GET response
-        assertEquals(getOrderResp.getString("opstat"), "ok");
-        assertTrue(getOrderResp.has("response"));
+        assertSuccessfulResponse(getOrderResp);
         JSONObject getOrderResponse = getOrderResp.getJSONObject("response");
         String jobId = getOrderResponse.getJSONObject("order").getJSONArray("jobs_available").getString(1);
 
         // GET job
         JSONObject getJobResp = client.getTranslationJob(Integer.parseInt(jobId));
-        assertEquals(getJobResp.getString("opstat"), "ok");
-        assertTrue(getJobResp.has("response"));
+        assertSuccessfulResponse(getJobResp);
         JSONObject getJobResponse = getJobResp.getJSONObject("response");
         String bodySrc = getJobResponse.getJSONObject("job").getString("body_src");
         assertEquals(bodySrc, "This is a short story.");
@@ -70,9 +67,7 @@ public class JobsTest extends GengoTests {
         List<FileJob> jobList = new ArrayList<FileJob>();
         jobList.add(job1);
         jobList.add(job2);
-        JSONObject rsp = client.determineTranslationCostFiles(jobList, filePaths);
-        assertEquals(rsp.getString("opstat"), "ok");
-        assertTrue(rsp.has("response"));
+        assertSuccessfulResponse(client.determineTranslationCostFiles(jobList, filePaths));
     }
 
     @Test
